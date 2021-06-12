@@ -1,0 +1,57 @@
+mixin createPostForm(UserLoggedin)
+    .postFormContainer
+        .userImageContainer
+           img(src=UserLoggedin.ProfilePic,alt="User s profile picture")
+        .textareaContainer
+            textarea#postTextarea(placeholder="What's happening?")
+            .buttonsContainer
+                button#submitPostButton(disabled="") Post
+
+mixin createReplyModal(UserLoggedin)
+    #replyModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='replyModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#replyModalLabel.modal-title Reply
+                    button.btn-close(type='button', data-dismiss='modal', aria-label='Close')
+                .modal-body
+                    #originalPostContainer
+                    .postFormContainer
+                        .userImageContainer
+                            img(src=UserLoggedin.ProfilePic,alt="User s profile picture")
+                        .textareaContainer
+                            textarea#replyTextarea(placeholder="What's happening?")
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Close
+                    button#submitReplyButton.btn.btn-primary(type='button', disabled="") Reply
+
+mixin createDeletePostModal()
+    #deletepostModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deletepostModalLabel', aria-hidden='true')
+         .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                     h5#deletepostModalLabel.modal-title Delete the post
+                     button.btn-close(type='button', data-dismiss='modal', aria-label='Close')
+                .modal-body
+                    p You wont be able to Delete
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Close
+                    button#deletePostButton.btn.btn-primary(type='button') Delete
+
+
+mixin createPostModals(UserLoggedin)
+     +createReplyModal(UserLoggedin)
+     +createDeletePostModal()
+
+
+
+mixin createFollowButton(user,isFollowing)
+    -text=isFollowing ? "Following" : "Follow"
+    -buttonClass=isFollowing ? "followButton following" :"followButton"
+     button(class=buttonClass,data-user=user._id) #{text}
+
+
+mixin createTab(name,href,isSelected)
+     -className=isSelected ? "tab active" : "tab"
+      a(href=href,class=className)
+          span #{name}
