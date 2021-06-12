@@ -6,7 +6,7 @@ const bodyParser=require("body-parser")
 const mongoose=require('./database')
 const session=require("express-session")
 
-const port=3000;
+//const port=3000;
 
 app.set("view engine","pug")
 app.set("views","views")
@@ -50,4 +50,4 @@ app.get("/",middleware.requireLogin,(req,res,next)=>{
   res.status(200).render("home",payload)
 })
 
-const server=app.listen(port,()=>console.log("Server Listening"))
+const server=app.listen(process.env.PORT || 3000);
